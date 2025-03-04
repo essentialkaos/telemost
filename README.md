@@ -3,6 +3,7 @@
 <p align="center">
   <a href="https://kaos.sh/g/telemost"><img src=".github/images/godoc.svg"/></a>
   <a href="https://kaos.sh/c/telemost"><img src="https://kaos.sh/c/telemost.svg" alt="Coverage Status" /></a>
+  <a href="https://kaos.sh/y/telemost"><img src="https://kaos.sh/y/df079c09ea4a4471aeabaebf960fa194.svg" alt="Codacy badge" /></a>
   <a href="https://kaos.sh/w/telemost/ci"><img src="https://kaos.sh/w/telemost/ci.svg" alt="GitHub Actions CI Status" /></a>
   <a href="https://kaos.sh/w/telemost/codeql"><img src="https://kaos.sh/w/telemost/codeql.svg" alt="GitHub Actions CodeQL Status" /></a>
   <a href="#license"><img src=".github/images/license.svg"/></a>
