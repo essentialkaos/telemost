@@ -8,11 +8,42 @@
   <a href="#license"><img src=".github/images/license.svg"/></a>
 </p>
 
-<p align="center"><a href="#ci-status">CI Status</a> • <a href="#contributing">Contributing</a> • <a href="#license">License</a></p>
+<p align="center"><a href="#usage-example">Usage example</a> • <a href="#ci-status">CI Status</a> • <a href="#contributing">Contributing</a> • <a href="#license">License</a></p>
 
 <br/>
 
 `telemost` is client for Yandex.Telemost API.
+
+### Usage example
+
+```go
+package main
+
+import (
+  "fmt"
+
+  "github.com/essentialkaos/telemost"
+)
+
+func main() {
+  api, err := crowd.NewClient("myToken1234")
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+
+  // Create new conference
+  cnf, err := api.Create(&telemost.Conference{})
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+
+  fmt.Printf("Conference %s created, join — %s\n", cnf.ID, cnf.JoinURL)
+}
+```
 
 ### CI Status
 
