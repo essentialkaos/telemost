@@ -1,6 +1,6 @@
 module github.com/essentialkaos/telemost
 
-go 1.24.0
+go 1.24.6
 
 require (
 	github.com/essentialkaos/check v1.4.1
