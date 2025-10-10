@@ -13,7 +13,7 @@
 
 <br/>
 
-`telemost` is client for Yandex.Telemost API.
+`telemost` is client for [Yandex.Telemost API](https://yandex.ru/dev/telemost/doc/ru/access).
 
 ### Usage example
 
@@ -27,7 +27,7 @@ import (
 )
 
 func main() {
-  api, err := crowd.NewClient("myToken1234")
+  api, err := telemost.NewClient("myToken1234")
 
   if err != nil {
     fmt.Println(err)
