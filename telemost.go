@@ -241,20 +241,20 @@ func (c *Client) GetCohosts(id string) (Hosts, error) {
 // AddCohosts appends given hosts to conference cohosts
 //
 // https://yandex.ru/dev/telemost/doc/ru/cohosts-add
-func (c *Client) AddCohosts(id string, cohosts []string) error {
+func (c *Client) AddCohosts(id string, emails []string) error {
 	switch {
 	case c == nil || c.engine == nil:
 		return ErrNilClient
 	case id == "":
 		return ErrEmptyID
-	case len(cohosts) == 0:
+	case len(emails) == 0:
 		return ErrEmptyCohosts
 	}
 
 	payload := &struct {
 		Cohosts Hosts `json:"cohosts"`
 	}{
-		Cohosts: convertHosts(cohosts),
+		Cohosts: convertHosts(emails),
 	}
 
 	return c.sendRequest(req.PATCH, "/"+id+"/cohosts", nil, payload, nil)
@@ -263,20 +263,20 @@ func (c *Client) AddCohosts(id string, cohosts []string) error {
 // UpdateCohosts updates conference cohosts
 //
 // https://yandex.ru/dev/telemost/doc/ru/cohosts-update
-func (c *Client) UpdateCohosts(id string, cohosts []string) error {
+func (c *Client) UpdateCohosts(id string, emails []string) error {
 	switch {
 	case c == nil || c.engine == nil:
 		return ErrNilClient
 	case id == "":
 		return ErrEmptyID
-	case len(cohosts) == 0:
+	case len(emails) == 0:
 		return ErrEmptyCohosts
 	}
 
 	payload := &struct {
 		Cohosts Hosts `json:"cohosts"`
 	}{
-		Cohosts: convertHosts(cohosts),
+		Cohosts: convertHosts(emails),
 	}
 
 	return c.sendRequest(req.PUT, "/"+id+"/cohosts", nil, payload, nil)
@@ -285,20 +285,35 @@ func (c *Client) UpdateCohosts(id string, cohosts []string) error {
 // DeleteCohosts removes given hosts from chosts of conference
 //
 // https://yandex.ru/dev/telemost/doc/ru/cohosts-del
-func (c *Client) DeleteCohosts(id string, cohosts []string) error {
+func (c *Client) DeleteCohosts(id string, emails []string) error {
 	switch {
 	case c == nil || c.engine == nil:
 		return ErrNilClient
 	case id == "":
 		return ErrEmptyID
-	case len(cohosts) == 0:
+	case len(emails) == 0:
 		return ErrEmptyCohosts
 	}
 
 	return c.sendRequest(
 		req.DELETE, "/"+id+"/cohosts", nil, nil,
-		req.Query{"cohost_emails": cohosts},
+		req.Query{"cohost_emails": emails},
 	)
+}
+
+// ////////////////////////////////////////////////////////////////////////////////// //
+
+// WithCohosts add cohosts with given emails to conference
+func (c *Conference) WithCohosts(emails ...string) *Conference {
+	if c == nil {
+		return nil
+	}
+
+	if len(emails) > 0 {
+		c.CoHosts = append(c.CoHosts, convertHosts(emails)...)
+	}
+
+	return c
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
@@ -386,11 +401,11 @@ func validateConference(conf *Conference) error {
 }
 
 // convertHosts converts slice with emails to hosts
-func convertHosts(hosts []string) Hosts {
+func convertHosts(emails []string) Hosts {
 	var result Hosts
 
-	for _, h := range hosts {
-		result = append(result, &Host{h})
+	for _, e := range emails {
+		result = append(result, &Host{Email: e})
 	}
 
 	return result
