@@ -99,8 +99,10 @@ func (s *TelemostSuite) TestGet(c *C) {
 }
 
 func (s *TelemostSuite) TestCreate(c *C) {
+	conf := &Conference{}
+
 	api, _ := NewClient("Test1234")
-	info, err := api.Create(&Conference{})
+	info, err := api.Create(conf.WithCohosts("user@domain.com"))
 
 	c.Assert(err, IsNil)
 	c.Assert(info, NotNil)
@@ -283,6 +285,9 @@ func (s *TelemostSuite) TestErrors(c *C) {
 	c.Assert(err, NotNil)
 
 	API = "http://127.0.0.1:" + TEST_PORT
+
+	var conf *Conference
+	c.Assert(conf.WithCohosts("user@domain.com"), IsNil)
 }
 
 // ////////////////////////////////////////////////////////////////////////////////// //
