@@ -11,7 +11,7 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/essentialkaos/ek/v13/req"
+	"github.com/essentialkaos/ek/v14/req"
 )
 
 // ////////////////////////////////////////////////////////////////////////////////// //
